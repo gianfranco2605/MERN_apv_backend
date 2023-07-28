@@ -11,7 +11,7 @@ const conectarDB = async () => {
 
         const url = `${db.connection.host}:${db.connection.port}`
 
-        console.log(`Mongo conect ${url}`);
+        console.log(`Mongo connect ${url}`);
     } catch (error) {
         console.log(`error: ${error.message}`);
         process.exit(1);
