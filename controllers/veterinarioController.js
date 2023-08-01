@@ -2,8 +2,6 @@ import Veterinario from "../models/Veterinario.js";
 import generarJWT from "../helpers/generarJWT.js";
 import generarId from "../helpers/generarId.js";
 
-
-
 const registrar = async (req, res, next) => { // Add 'next' as a parameter
     try {
         // Save Veterinario
@@ -43,9 +41,7 @@ const confirmar = async (req, res) => {
         res.json({msg: "Usuario confirmado correctamente"})
     } catch (error) {
         console.log(error);
-    }
-
-    
+    }    
 };
 
 const autenticar = async (req,res) => {
