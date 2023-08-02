@@ -1,5 +1,5 @@
 import express from "express";
-import { agregarPacientes, obtenerPacientes } from "../controllers/pacienteController.js";
+import { agregarPacientes, obtenerPacientes,obtenerPaciente, actualizaPaciente, eliminarPaciente } from "../controllers/pacienteController.js";
 import checkAuth from "../middleware/authMiddleware.js";
 
 const router = express.Router();
@@ -10,7 +10,7 @@ router
     .get(checkAuth, obtenerPacientes)
 
 router 
-    .route(':id')
+    .route('/:id')
     .get(checkAuth, obtenerPaciente)
     .put(checkAuth, actualizaPaciente)
     .delete(checkAuth, eliminarPaciente)
