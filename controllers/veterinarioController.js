@@ -1,12 +1,28 @@
 import Veterinario from "../models/Veterinario.js";
 import generarJWT from "../helpers/generarJWT.js";
 import generarId from "../helpers/generarId.js";
+import emailRegistro from "../helpers/emailRegistro.js";
 
 const registrar = async (req, res, next) => { // Add 'next' as a parameter
+    const { email, nombre } = req.body;
+
+    //Prevent duplicate Users
+    const existeUsuario = await Veterinario.findOne({ email });
+    if(existeUsuario) {
+        const error = new Error("Usuario ya registrado");
+        return res.status(400).json({ msg: error.message })
+    }
     try {
         // Save Veterinario
         const veterinario = new Veterinario(req.body);
         const veterinarioGuardado = await veterinario.save();
+
+        //Sending email
+        emailRegistro({
+            email,
+            nombre,
+            token: veterinarioGuardado.token,
+        });
 
         res.json(veterinarioGuardado);
     } catch (error) {
