@@ -36,9 +36,7 @@ const registrar = async (req, res, next) => { // Add 'next' as a parameter
  
 const perfil = (req, res) => {
     const { veterinario } = req
-    res.json({
-        perfil: veterinario
-    });
+    res.json(veterinario);
 };
 
 const confirmar = async (req, res) => {
