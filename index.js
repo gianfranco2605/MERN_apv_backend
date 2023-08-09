@@ -29,7 +29,9 @@ const corsOptions = {
     },
 };
 
-app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Add this line to handle preflight requests
+
+app.use(cors(corsOptions)); // Move this line after app.options
 
 
 app.use('/api/veterinarios', veterinarioRoutes );
