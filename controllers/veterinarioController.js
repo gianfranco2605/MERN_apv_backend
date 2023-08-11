@@ -156,7 +156,29 @@ const nuevoPassword = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+};
 
+const actualizarPassword = async(req, res) => {
+    // read data
+    const { id } = req.veterinario;
+    const { pwd_actual, pwd_nuevo } = req.body
+    // Veterinario exist?
+    const veterinario = await Veterinario.findById(id);
+    if(!veterinario) { 
+        const error = new Error('Hubo un error');
+        return res.status(400).json({ msg: error.message }); 
+    }
+    // Trust password
+    if( await veterinario.comprobarPassword(pwd_actual)) {
+        // Save new password
+        veterinario.password = pwd_nuevo;
+        await veterinario.save();
+        res.json({ msg: 'Password Almacenado Correctamente' })
+    }else {
+        const error = new Error('Password actual es incorrecto');
+        return res.status(400).json({ msg: error.message }); 
+    }
+    
 }
 
 const actualizarPerfil = async (req, res) => {
@@ -196,5 +218,6 @@ export {
     olvidePassword,
     comprobarToken,
     nuevoPassword,
-    actualizarPerfil
+    actualizarPerfil,
+    actualizarPassword,
 }
